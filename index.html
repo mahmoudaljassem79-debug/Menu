@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم وكافتيريا تعليلة - المنيو الرسمي</title>
+    <title>مطعم وكافتيريا تعليلة - المنيو الرسمي المحدث</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -28,7 +28,6 @@
         .page { display: none; height: 100%; width: 100%; position: relative; }
         .page.active { display: flex; flex-direction: column; }
 
-        /* منطقة النص (اليمين) */
         .text-layer {
             position: absolute;
             top: 60px;
@@ -42,7 +41,6 @@
             direction: rtl;
         }
 
-        /* منطقة الصور الـ 5 (اليسار) */
         .visual-layer {
             position: absolute;
             left: -15%;
@@ -66,18 +64,19 @@
 
         .cat-headline {
             font-family: 'Aref Ruqaa', serif;
-            font-size: 2.6rem;
+            font-size: 2.2rem;
             font-weight: 900;
             border-bottom: 5px solid #000;
             display: inline-block;
             margin-bottom: 1.5rem;
             color: #000;
+            line-height: 1.2;
         }
 
         .menu-row {
-            font-size: 1.35rem;
+            font-size: 1.2rem;
             font-weight: 800;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.5rem;
             color: #111;
             display: block;
             border-bottom: 1px dashed rgba(0,0,0,0.2);
@@ -86,11 +85,11 @@
 
         .sub-divider {
             font-weight: 900;
-            background: rgba(0,0,0,0.12);
+            background: rgba(0,0,0,0.15);
             padding: 5px 10px;
-            margin: 1.8rem 0 0.8rem 0;
+            margin: 1.5rem 0 0.8rem 0;
             border-right: 6px solid #000;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
         }
 
         .top-navbar {
@@ -105,21 +104,21 @@
         }
 
         .cats-grid {
-            padding: 20px;
+            padding: 15px;
             display: grid;
             grid-template-columns: 1fr;
-            gap: 12px;
+            gap: 10px;
             overflow-y: auto;
             flex: 1;
         }
 
         .cat-card-btn {
-            background: rgba(255,255,255,0.05);
-            border: 3px solid #000;
-            padding: 18px;
-            font-size: 1.6rem;
+            background: rgba(0,0,0,0.03);
+            border: 2px solid #000;
+            padding: 14px;
+            font-size: 1.3rem;
             font-weight: 900;
-            border-radius: 15px;
+            border-radius: 12px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
@@ -158,9 +157,7 @@
             <span class="text-xl font-bold font-[Aref Ruqaa]">أقسام تعليلة</span>
             <i class="fa-solid fa-utensils"></i>
         </div>
-        <div class="cats-grid" id="cats-render-area">
-            <!-- الأقسام تظهر هنا تلقائياً -->
-        </div>
+        <div class="cats-grid" id="cats-render-area"></div>
         <button onclick="nav('welcome')" class="p-4 bg-black text-white font-bold text-lg">العودة للرئيسية</button>
     </section>
 
@@ -171,11 +168,7 @@
             <span id="nav-label-active" class="font-bold"></span>
             <div class="w-10"></div>
         </div>
-
-        <!-- 5 صور مفرغة تظهر في اليسار كخلفية -->
         <div class="visual-layer" id="images-render-area"></div>
-
-        <!-- قائمة الطعام تظهر في اليمين -->
         <div class="text-layer">
             <h2 id="cat-title-display" class="cat-headline"></h2>
             <div id="items-render-area"></div>
@@ -189,31 +182,31 @@
             <span class="font-bold">تواصل معنا</span>
             <div class="w-10"></div>
         </div>
-        <div class="p-8 flex flex-col gap-6 text-center" id="contact-render-area">
-            <!-- بيانات التواصل تظهر هنا -->
-        </div>
+        <div class="p-8 flex flex-col gap-6 text-center overflow-y-auto" id="contact-render-area"></div>
     </section>
 
 </div>
 
 <script>
-    // --- بيانات المنيو الأساسية (يمكنك التعديل عليها هنا) ---
     const menuData = {
         "oriental": {
             name: "الوجبات الشرقية",
-            // ضع هنا 5 صور مفرغة لهذا القسم
             photos: ["1000510383.jpg", "1000510384.jpg", "1000510376.jpg", "1000510383.jpg", "1000510384.jpg"],
             items: [
                 "خاروف محشي", "كبسة دجاج", "كبسة لحمة", "شاكرية دجاج", "شاكرية لحمة", 
                 "كباب هندي", "داوود باشا", "طواية لحمة", "حميس مع فطر", "شيخ المحشي", 
-                "كبة لبنية", "لحمة بصينية", "بامية", "ملوخية", "شيش برك", "مندي"
+                "كبة لبنية", "لحمة بصينية", "خضرة مشكلة مع لحمة", "دجاج مع بطاطا بالفرن",
+                "بامية", "ملوخية", "شيش برك", "منايير (مناسف)", "فريكة دجاج", "فريكة لحمة",
+                "فاصوليا حب", "فاصوليا خضرة", "صحن رز", "مندي"
             ]
-          },
+        },
         "mshawe": {
             name: "مشاوي",
             photos: ["1000510381.jpg", "1000510376.jpg", "1000510381.jpg", "1000510376.jpg", "1000510381.jpg"],
             items: [
-                "كباب لحم", "كباب دجاج", "مارينا", "شيش", "جوانح", "فروج عالفحم", "بيض غنم", "سمك مشوي", "كباب باذنجان", "كباب دقة(بندورة + باذنجان)", " كباب برغل", "كباب كمة", "شقف", "مشاوي تعليلة"
+                "كباب لحم", "كباب دجاج", "مارينا", "شيش", "جوانح", "فروج عالفحم", 
+                "بيض غنم", "سمك مشوي", "كباب باذنجان", "كباب دقة(بندورة + باذنجان)", 
+                "كباب برغل", "كباب كمة", "شقف", "مشاوي تعليلة"
             ]
         },
         "western": {
@@ -222,83 +215,128 @@
             items: [
                 "كرسبي", "زنجر", "ناغيت", "فاهيتا", "مكسيكانو", "شاورما عربي", 
                 "سكالوب", "كرودون بلو", "رول تشيكن", "كنتاكي", "شرحات لحمة", 
-                "همبرغر لحمة", "همبرغر دجاج", "شيش غريل"
+                "شرحات دجاج", "لحمة بالفخار", "دجاج بالفخار", "معكرونة بالبشاميل",
+                "جوانح بانيه", "سمك جر", "تشيكن تركي", "همبرغر لحمة", "همبرغر دجاج", "شيش غريل"
             ]
         },
         "pizza": {
             name: "البيتزا والمنقوشة",
             photos: ["1000510378.jpg", "1000510378.jpg", "1000510378.jpg", "1000510378.jpg", "1000510378.jpg"],
             items: [
-                "فصول أربعة", "خضار", "مارغرايتا", "دجاج", "لحوم", "سجق", "مرتديلا",
+                "فصول (الأربعة)", "خضار", "مارغرايتا", "دجاج", "لحوم", "سجق", "مرتديلا",
+                "تعليلة", "سلامي", "فطر", "هوت دوغ",
                 "--- قسم توشكا ---",
-                "لحمة", "دجاج", "جبنة", "محمرة", "زعتر"
+                "لحمة", "دجاج", "جبنة", "محمرة", "زعتر", "مرتديلا", "شرحات سبيروم",
+                "سلطة زيتون", "سلطة فطر", "جكن بايلا غربي"
             ]
         },
         "appetizers": {
-            name: "المقبلات والشوربات",
+            name: "المقبلات",
             photos: ["1000510384.jpg", "1000510384.jpg", "1000510384.jpg", "1000510384.jpg", "1000510384.jpg"],
             items: [
-                "بطاطا", "حمص", "متبل", "محمرة بكعك", "طرطور دجاج", 
-                "كبة صاجية", "بابا غنوج", "يالنجي", "برك جبنة", "شوربة عدس"
+                "بطاطا", "كريم ثوم", "مايونيز", "حمص", "متبل", "محمرة بكعك", 
+                "طرطور دجاج", "كبة طرابلسية", "كبة صاجية", "بابا غنوج", 
+                "باذنجان مشوي", "ذرة بالمايونيز", "حمص بيروتي", "حمص باللحمة",
+                "يالنجي", "برك جبنة", "كبة نية"
             ]
         },
         "breakfast": {
-            name: "الفطور الصباحي",
+            name: "الفطور",
             photos: ["1000510384.jpg", "1000510384.jpg", "1000510384.jpg", "1000510384.jpg", "1000510384.jpg"],
-            items: ["بيض مقلي", "جبنة عربية", "لبنة عربية", "زيتون", "مرتديلا", "حلاوة", "مربى", "حمص حب"]
+            items: [
+                "بيض مقلي", "بيض مسلوق", "جبنة عربية", "لبنة عربية", "زيتون", 
+                "مرتديلا", "حلاوة", "مربى + زبدة", "حمص حب", "خضرة مشكلة", "بيض مع بندورة"
+            ]
         },
-        "salads": {
-            name: "السلطات الطازجة",
-            photos: ["1000510366.png", "1000510366.png", "1000510366.png", "1000510366.png", "1000510366.png"],
-            items: ["فتوش", "تبولة", "سلطة شرقية", "سلطة ارمنية", "جرجير", "سيزر", "سلطة روسية", "شمندر", "خيار بلبن"]
+        "hot_drinks": {
+            name: "المشروبات الساخنة",
+            photos: ["1000510363.png", "1000510363.png", "1000510363.png", "1000510363.png", "1000510363.png"],
+            items: [
+                "قهوة", "شاي خمير", "شاي ظرف", "كبتشينو", "كبتشينو مع حليب", "ميلو",
+                "ميلو مع حليب", "هوت شوكليت", "هوت شوكليت مع مارشميلو", "نسكافيه بلاك",
+                "نسكافيه مع حليب", "زنجبيل", "زنجبيل مع برتقال", "زنجبيل مع ليمون",
+                "زنجبيل مع حليب", "زهورات", "كمون وليمون", "شاي اخضر", "كركديه",
+                "نعناع مغلي", "شاي مع نعناع", "شاي مع ليمون"
+            ]
         },
-        "desserts": {
-            name: "العصائر والحلويات",
+        "fresh_juices": {
+            name: "عصير طبيعي فريش",
             photos: ["1000510366.png", "1000510362.png", "1000510361.png", "1000510377.jpg", "1000510366.png"],
             items: [
-                "برتقال", "منغا", "أناناس", "بولو", "فريز",
+                "برتقال", "منغا", "أناناس", "سموزي منغا مع أناناس", "برتقال وليمون",
+                "بولو", "فريز", "سموزي فريز وليمون", "سموزي فريز وكيوي", "كيوي",
+                "بطيخ", "جبس", "رمان", "جمايكا", "كراندين"
+            ]
+        },
+        "milkshakes_cocktails": {
+            name: "ميلك شيك وكوكتيل",
+            photos: ["1000510361.png", "1000510362.png", "1000510361.png", "1000510362.png", "1000510361.png"],
+            items: [
+                "--- ميلك شيك ---",
+                "فانيل", "فريز", "شوكولا", "لوتس", "أوريو", "كرميل",
+                "--- كوكتيلات ---",
+                "حليب وموز", "حليب وموز وفريز", "حليب وموز وأفوكادو", "حليب وموز وشوكولا",
+                "فواكه", "آيس كفي", "آيس موكا", "فرابتشينو", "كوكتيل طبقات",
+                "كوكتيل تروبيكال آيلند", "سانسيت"
+            ]
+        },
+        "salads_desserts": {
+            name: "السلطات والحلويات",
+            photos: ["1000510366.png", "1000510377.jpg", "1000510366.png", "1000510377.jpg", "1000510366.png"],
+            items: [
+                "--- قسم السلطات ---",
+                "فتوش", "تبولة", "شرقية", "ارمنية", "جرجير", "سيزر", "روسية", "سويسرية", "تعليلة", "شمندر", "خيار بلبن", "خضرة مشكلة", "زيتون", "فطر",
                 "--- الحلويات ---",
-                "سلطة فواكه", "بوظة مشكل", "إمبراطور شوكولا", "إمبراطور قشاطي", "وافل فواكه", "كريب شوكولا"
+                "كاتو", "كوفر (وافل) فواكه", "كوفر شوكولا", "كوفر قشطة وعسل", "كريب شوكولا", "كريب فواكه", "كريب فيتوتشيني", "شوشي كريب",
+                "--- سلطة فواكه ---",
+                "سلطة فواكه", "سلطة فواكه نوتيلا", "سلطة فواكه لوتس", "بوظة مشكل", "موالح",
+                "--- قسم إمبراطور ---",
+                "إمبراطور شوكولا", "إمبراطور فواكه", "إمبراطور حليب وموز", "إمبراطور قشاطي", "إمبراطور أفوكادو", "سبشل فريز"
+            ]
+        },
+        "mojito_cold": {
+            name: "موهيتو ومشروبات باردة",
+            photos: ["1000510362.png", "1000510362.png", "1000510362.png", "1000510362.png", "1000510362.png"],
+            items: [
+                "موهيتو ليمون ونعناع", "موهيتو بلو هاواي", "موهيتو بلو كساوا", "موهيتو توت",
+                "موهيتو باشن فروت", "بلو فاي", "بلولاييم", "ولكم بيري", "لايم أند بيري",
+                "سفن", "سفن مع ليمون", "سفن مع كراندين", "كولا", "كولا مع نسكافيه"
             ]
         },
         "hookah": {
-            name: "قسم الأركيلة",
+            name: "الأركيلة",
             photos: ["1000510363.png", "1000510363.png", "1000510363.png", "1000510363.png", "1000510363.png"],
-            items: ["تفاحتين فاخر", "عنب ونعنع", "ليمون ونعنع", "لوف", "علكة ومسكة", "بولو", "خدمة أركيلة", "تعليلة فريش"]
+            items: ["تفاحتين", "فاخر", "عنب", "لوف", "مسكة", "عنب ونعنع", "بولو", "خدمة اركيلة", "خدمة راس", "تعليلة فريش"]
         }
     };
 
-    // --- بيانات التواصل (يمكنك التعديل عليها هنا) ---
     const contactInfo = [
-        { icon: "fa-whatsapp", label: "واتساب", value: " 0955820800 ", color: "text-green-600" },
+        { icon: "fa-whatsapp", label: "واتساب", value: "0955820800", color: "text-green-600" },
         { icon: "fa-facebook", label: "فيسبوك", value: "تعليلة_Taalia", color: "text-blue-800" },
-        { icon: "fa-map-marker-alt", label: "العنوان", value: "دير الزور -الرشدية شارع النهر", color: "text-red-700" }
+        { icon: "fa-map-marker-alt", label: "العنوان", value: "دير الزور - الرشدية - شارع النهر", color: "text-red-700" }
     ];
 
-    // دالة التنقل بين الصفحات
     function nav(id) {
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
+        if(id === 'categories') window.scrollTo(0,0);
     }
 
-    // دالة فتح القسم وعرض محتوياته
     function openCat(key) {
         const data = menuData[key];
         document.getElementById('nav-label-active').innerText = data.name;
         document.getElementById('cat-title-display').innerText = data.name;
 
-        // 1. توليد الصور في اليسار
         const imgSlot = document.getElementById('images-render-area');
         imgSlot.innerHTML = '';
         data.photos.forEach(src => {
             const img = document.createElement('img');
             img.src = src;
             img.className = 'dish-float';
-            img.onerror = () => img.style.opacity = '0';
+            img.onerror = () => img.style.display = 'none';
             imgSlot.appendChild(img);
         });
 
-        // 2. توليد الأصناف في اليمين
         const listSlot = document.getElementById('items-render-area');
         listSlot.innerHTML = '';
         data.items.forEach(text => {
@@ -316,11 +354,10 @@
         });
 
         nav('details');
+        document.querySelector('.text-layer').scrollTop = 0;
     }
 
-    // تهيئة الموقع عند التحميل
     function startup() {
-        // بناء قائمة الأقسام
         const catBox = document.getElementById('cats-render-area');
         Object.keys(menuData).forEach(key => {
             const btn = document.createElement('div');
@@ -330,11 +367,10 @@
             catBox.appendChild(btn);
         });
 
-        // بناء صفحة التواصل
         const contactBox = document.getElementById('contact-render-area');
         contactInfo.forEach(c => {
             contactBox.innerHTML += `
-                <div class="p-6 border-4 border-black rounded-3xl bg-white/10">
+                <div class="p-6 border-4 border-black rounded-3xl bg-white/10 mb-4">
                     <i class="fa-solid ${c.icon} text-5xl mb-3 ${c.color}"></i>
                     <p class="text-2xl font-black">${c.label}</p>
                     <p class="text-xl font-bold">${c.value}</p>
