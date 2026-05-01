@@ -2,355 +2,307 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطعم وكافتيريا تعليلة - المنيو الرسمي المحدث</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>مطعم وكافتيريا تعليلة - المنيو الرسمي</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        :root { --paper: #d2b48c; }
-        body { font-family: 'Tajawal', sans-serif; background-color: #111; margin: 0; overflow: hidden; }
+        :root { --accent: #f59e0b; --bg-overlay: rgba(15, 23, 42, 0.88); }
+        body { font-family: 'Tajawal', sans-serif; background-color: #000; margin: 0; overflow: hidden; color: #f8fafc; }
         
         .main-container {
-            max-width: 500px;
-            margin: 0 auto;
-            height: 100vh;
-            background-color: var(--paper);
-            background-image: url('https://www.transparenttextures.com/patterns/parchment.png');
-            box-shadow: inset 0 0 100px rgba(0,0,0,0.5);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            max-width: 480px; margin: 0 auto; height: 100dvh;
+            background-image: url('5.jpg'); 
+            background-size: cover; background-position: center;
+            position: relative; overflow: hidden; display: flex; flex-direction: column;
+            transition: background-image 0.8s ease-in-out; 
         }
 
-        .page { display: none; height: 100%; width: 100%; position: relative; }
-        .page.active { display: flex; flex-direction: column; }
-
-        .text-layer {
-            position: absolute;
-            top: 60px;
-            right: 0;
-            width: 60%; /* تعديل العرض لترك مساحة للصور */
-            height: calc(100% - 60px);
-            padding: 20px 15px 100px 5px;
-            z-index: 30;
-            text-align: right;
-            overflow-y: auto;
-            direction: rtl;
+        .main-container::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: var(--bg-overlay); z-index: 0;
         }
 
-        .visual-layer {
-            position: absolute;
-            left: 0; /* يبدأ من الحافة اليسرى */
-            top: 60px; /* أسفل الشريط العلوي */
-            width: 40%; /* يأخذ 40% من عرض الشاشة */
-            height: calc(100% - 60px);
-            z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-evenly; /* توزيع المسافات بالتساوي بين الصور */
-            align-items: center;
-            pointer-events: none;
-            padding-bottom: 20px;
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .dish-float {
-            width: 85%; /* عرض مناسب داخل المساحة المخصصة */
-            max-height: 24%; /* منع الصورة من التمدد بشكل مفرط */
-            filter: drop-shadow(8px 12px 15px rgba(0,0,0,0.4)); /* ظل واقعي للمجسمات المفرغة */
-            object-fit: contain;
-            transform: rotate(-4deg);
-        }
+        .page { display: none; height: 100%; width: 100%; position: absolute; top: 0; left: 0; flex-direction: column; z-index: 1; animation: fadeUp 0.4s ease forwards; }
+        .page.active { display: flex; z-index: 10; }
 
-        .cat-headline {
-            font-family: 'Aref Ruqaa', serif;
-            font-size: 2.2rem;
-            font-weight: 900;
-            border-bottom: 5px solid #000;
-            display: inline-block;
-            margin-bottom: 1.5rem;
-            color: #000;
-            line-height: 1.2;
-        }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .menu-row {
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin-bottom: 0.5rem;
-            color: #111;
-            display: block;
-            border-bottom: 1px dashed rgba(0,0,0,0.2);
-            padding-bottom: 2px;
-        }
+        .top-navbar { background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(20px); height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 100; }
+        .text-layer { position: absolute; top: 0; right: 0; width: 60%; height: 100%; padding: 20px 20px 100px 5px; z-index: 30; overflow-y: auto; scrollbar-width: none; }
+        .visual-layer { position: absolute; left: 0; top: 0; width: 40%; height: 100%; z-index: 10; display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; }
+        
+        .dish-float { width: 85%; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.7)); object-fit: contain; animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
 
-        .sub-divider {
-            font-weight: 900;
-            background: rgba(0,0,0,0.15);
-            padding: 5px 10px;
-            margin: 1.5rem 0 0.8rem 0;
-            border-right: 6px solid #000;
-            font-size: 1.1rem;
+        .menu-row { font-size: 1.1rem; margin-bottom: 0.7rem; display: flex; align-items: center; }
+        .menu-row::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; margin-left: 10px; }
+        .sub-divider { font-weight: 700; color: var(--accent); background: rgba(0,0,0,0.5); padding: 5px; margin: 1.5rem 0 0.8rem 0; border-radius: 8px; text-align: center; border: 1px solid rgba(245,158,11,0.2); }
+        .brand-text { font-family: 'Aref Ruqaa', serif; font-size: 5rem; background: linear-gradient(to bottom, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        /* تحسين مظهر أزرار الاتصال */
+        .contact-card {
+            transition: all 0.3s ease;
+            border-right: 4px solid var(--accent);
         }
-
-        .top-navbar {
-            background: #000;
-            color: #fff;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            height: 60px;
-        }
-
-        .cats-grid {
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            overflow-y: auto;
-            flex: 1;
-        }
-
-        .cat-card-btn {
-            background: rgba(0,0,0,0.03);
-            border: 2px solid #000;
-            padding: 14px;
-            font-size: 1.3rem;
-            font-weight: 900;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .cat-card-btn:active { transform: scale(0.97); background: #000; color: #fff; }
-
-        .hero-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-        }
+        .contact-card:active { transform: scale(0.95); background: rgba(245, 158, 11, 0.1); }
     </style>
 </head>
 <body>
 
-<div class="main-container">
+<div class="main-container" id="main-layout">
     
     <section id="welcome" class="page active">
-        <div class="hero-box">
-            <div class="border-[12px] border-black p-12 rotate-[-2deg] mb-12">
-                <h1 class="text-7xl font-bold font-[Aref Ruqaa]">تعليلة</h1>
-                <p class="text-2xl font-black mt-2 tracking-widest">مطعم وكافتيريا</p>
+        <div class="flex flex-col items-center justify-center h-full text-center p-6">
+            <h1 class="brand-text">تعليلة</h1>
+            <p class="text-amber-500 text-xl font-bold mb-8">مطعم وكافتيريا</p>
+            <div class="flex flex-col gap-4 w-full max-w-[250px]">
+                <button onclick="nav('categories')" class="glass-panel text-white px-8 py-4 rounded-full text-xl font-bold border border-amber-500/50">استكشف المنيو</button>
+                <button onclick="nav('info')" class="text-amber-500 font-bold py-2">تواصل معنا <i class="fa-solid fa-phone-flip mr-2"></i></button>
             </div>
-            <button onclick="nav('categories')" class="bg-black text-white px-16 py-5 rounded-full text-2xl font-bold shadow-2xl">استكشف المنيو</button>
-            <button onclick="nav('info')" class="mt-8 text-black font-black border-b-4 border-black text-xl">تواصل معنا</button>
         </div>
     </section>
 
     <section id="categories" class="page">
         <div class="top-navbar">
-            <span class="text-xl font-bold font-[Aref Ruqaa]">أقسام تعليلة</span>
-            <i class="fa-solid fa-utensils"></i>
+            <span class="text-2xl font-bold font-[Aref Ruqaa] text-amber-500">أقسام تعليلة</span>
+            <button onclick="nav('welcome')" class="text-slate-200 text-xl"><i class="fa-solid fa-house"></i></button>
         </div>
-        <div class="cats-grid" id="cats-render-area"></div>
-        <button onclick="nav('welcome')" class="p-4 bg-black text-white font-bold text-lg">العودة للرئيسية</button>
+        <div class="grid grid-cols-2 gap-4 p-5 overflow-y-auto" id="cats-area"></div>
     </section>
 
     <section id="details" class="page">
         <div class="top-navbar">
-            <button onclick="nav('categories')"><i class="fa-solid fa-arrow-right ml-2"></i> الأقسام</button>
-            <span id="nav-label-active" class="font-bold"></span>
+            <button onclick="nav('categories')" class="text-slate-200 font-bold"><i class="fa-solid fa-chevron-right"></i> رجوع</button>
+            <span id="nav-title" class="text-amber-500 font-bold"></span>
             <div class="w-10"></div>
         </div>
-        <div class="visual-layer" id="images-render-area"></div>
-        <div class="text-layer">
-            <h2 id="cat-title-display" class="cat-headline"></h2>
-            <div id="items-render-area"></div>
+        <div class="relative flex-1 overflow-hidden">
+            <div class="visual-layer" id="img-area"></div>
+            <div class="text-layer">
+                <h2 id="cat-head" class="font-[Aref Ruqaa] text-3xl text-amber-500 mb-6"></h2>
+                <div id="items-area"></div>
+            </div>
         </div>
     </section>
 
     <section id="info" class="page">
         <div class="top-navbar">
-            <button onclick="nav('welcome')">الرئيسية</button>
-            <span class="font-bold">تواصل معنا</span>
+            <button onclick="nav('welcome')" class="text-slate-200 font-bold"><i class="fa-solid fa-chevron-right"></i> الرئيسية</button>
+            <span class="text-amber-500 font-bold">تواصل معنا</span>
             <div class="w-10"></div>
         </div>
-        <div class="p-8 flex flex-col gap-6 text-center overflow-y-auto" id="contact-render-area"></div>
+        <div class="flex-1 overflow-y-auto p-6">
+            <div class="text-center mb-8">
+                <i class="fa-solid fa-headset text-amber-500 text-5xl mb-4"></i>
+                <h3 class="text-2xl font-bold">نسعد بخدمتكم</h3>
+                <p class="text-slate-400">يمكنكم التواصل معنا عبر الأرقام التالية</p>
+            </div>
+
+            <div class="grid gap-4">
+                <a href="tel:0988406490" class="contact-card glass-panel p-4 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                            <i class="fa-solid fa-user-tie text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">أبو سليمان</h4>
+                            <p class="text-sm text-slate-400" dir="ltr">0988406490</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-amber-500"></i>
+                </a>
+
+                <a href="tel:0953240282" class="contact-card glass-panel p-4 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                            <i class="fa-solid fa-user-check text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">أبو حسين</h4>
+                            <p class="text-sm text-slate-400" dir="ltr">0953240282</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-amber-500"></i>
+                </a>
+
+                <a href="tel:0955820800" class="contact-card glass-panel p-4 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                            <i class="fa-solid fa-user-shield text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">أبو عهد</h4>
+                            <p class="text-sm text-slate-400" dir="ltr">0955820800</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-amber-500"></i>
+                </a>
+
+                <a href="tel:0953240276" class="contact-card glass-panel p-4 rounded-xl flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-500">
+                            <i class="fa-solid fa-calculator text-xl"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">المحاسبة</h4>
+                            <p class="text-sm text-slate-400" dir="ltr">0953240276</p>
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-phone text-amber-500"></i>
+                </a>
+
+                <a href="https://www.facebook.com/Taalila/" target="_blank" class="mt-4 glass-panel p-4 rounded-xl flex items-center justify-center gap-3 bg-blue-600/20 border-blue-500/30 text-white font-bold transition-all active:scale-95">
+                    <i class="fa-brands fa-facebook text-2xl text-blue-500"></i>
+                    تابعنا على فيسبوك
+                </a>
+            </div>
+            
+            <p class="text-center text-xs text-slate-500 mt-8 mb-4">جميع الحقوق محفوظة لتعليلة © 2026</p>
+        </div>
     </section>
 
 </div>
 
 <script>
+    const backgrounds = {
+        'welcome': '5.jpg',
+        'categories': '2.jpg',
+        'info': '3.jpg' // خلفية صفحة تواصل معنا
+    };
+
     const menuData = {
         "oriental": {
-            name: "الوجبات الشرقية",
-            // مثال لـ 4 صور مفرغة
+            name: "الوجبات الشرقية", icon: "fa-bowl-food", bg: "1.jpg",
             photos: ["oooo.png", "ooo.png", "oo.png", "o.png"],
-            items: [
-                "خاروف محشي", "كبسة دجاج", "كبسة لحمة", "شاكرية دجاج", "شاكرية لحمة", 
-                "كباب هندي", "داوود باشا", "طواية لحمة", "حميس مع فطر", "شيخ المحشي", 
-                "كبة لبنية", "لحمة بصينية", "خضرة مشكلة مع لحمة", "دجاج مع بطاطا بالفرن",
-                "بامية", "ملوخية", "شيش برك", "منايير (مناسف)", "فريكة دجاج", "فريكة لحمة",
-                "فاصوليا حب", "فاصوليا خضرة", "صحن رز", "مندي"
-            ]
+            items: ["خاروف محشي", "كبسة دجاج", "كبسة لحمة", "شاكرية دجاج", "شاكرية لحمة", "كباب هندي", "داوود باشا", "طواية لحمة", "حميس مع فطر", "شيخ المحشي", "كبة لبنية", "لحمة بصينية", "خضرة مشكلة مع لحمة", "دجاج مع بطاطا بالفرن", "بامية", "ملوخية", "شيش برك", "منايير (مناسف)", "فريكة دجاج", "فريكة لحمة", "فاصوليا حب", "فاصوليا خضرة", "صحن رز", "مندي"]
         },
         "mshawe": {
-            name: "مشاوي",
-            // مثال لـ 3 صور مفرغة
+            name: "مشاوي", icon: "fa-fire-burner", bg: "44.jpg",
             photos: ["hhhh.png","hhh.png", "hh.png", "h.png"],
-            items: [
-                "كباب لحم", "كباب دجاج", "مارينا", "شيش", "جوانح", "فروج عالفحم", 
-                "بيض غنم", "سمك مشوي", "كباب باذنجان", "كباب دقة(بندورة + باذنجان)", 
-                "كباب برغل", "كباب كمة", "شقف", "مشاوي تعليلة"
-            ]
+            items: ["كباب لحم", "كباب دجاج", "مارينا", "شيش", "جوانح", "فروج عالفحم", "بيض غنم", "سمك مشوي", "كباب باذنجان", "كباب دقة(بندورة + باذنجان)", "كباب برغل", "كباب كمة", "شقف", "مشاوي تعليلة"]
         },
         "western": {
-            name: "الوجبات الغربية",
+            name: "الوجبات الغربية", icon: "fa-burger", bg: "4.jpg",
             photos: ["kkkk.png", "kkk.png", "kk.png", "k.png"],
-            items: [
-                "كرسبي", "زنجر", "ناغيت", "فاهيتا", "مكسيكانو", "شاورما عربي", 
-                "سكالوب", "كرودون بلو", "رول تشيكن", "كنتاكي", "شرحات لحمة", 
-                "شرحات دجاج", "لحمة بالفخار", "دجاج بالفخار", "معكرونة بالبشاميل",
-                "جوانح بانيه", "سمك جر", "تشيكن تركي", "همبرغر لحمة", "همبرغر دجاج", "شيش غريل"
-            ]
+            items: ["كرسبي", "زنجر", "ناغيت", "فاهيتا", "مكسيكانو", "شاورما عربي", "سكالوب", "كرودون بلو", "رول تشيكن", "كنتاكي", "شرحات لحمة", "شرحات دجاج", "لحمة بالفخار", "دجاج بالفخار", "معكرونة بالبشاميل", "جوانح بانيه", "سمك جر", "تشيكن تركي", "همبرغر لحمة", "همبرغر دجاج", "شيش غريل"]
         },
         "pizza": {
-            name: "البيتزا والمنقوشة",
+            name: "البيتزا والمنقوشة", icon: "fa-pizza-slice", bg: "9.jpg",
             photos: ["bbb.png", "bbbb.png","bb.png", "b.png"],
-            items: [
-                "فصول (الأربعة)", "خضار", "مارغرايتا", "دجاج", "لحوم", "سجق", "مرتديلا",
-                "تعليلة", "سلامي", "فطر", "هوت دوغ",
-                "--- قسم توشكا ---",
-                "لحمة", "دجاج", "جبنة", "محمرة", "زعتر", "مرتديلا", "شرحات سبيروم",
-                "سلطة زيتون", "سلطة فطر", "جكن بايلا غربي"
-            ]
+            items: ["فصول (الأربعة)", "خضار", "مارغرايتا", "دجاج", "لحوم", "سجق", "مرتديلا", "تعليلة", "سلامي", "فطر", "هوت دوغ", "--- قسم توشكا ---", "لحمة", "دجاج", "جبنة", "محمرة", "زعتر", "مرتديلا", "شرحات سبيروم", "سلطة زيتون", "سلطة فطر", "جكن بايلا غربي"]
         },
         "appetizers": {
-            name: "المقبلات",
+            name: "المقبلات", icon: "fa-carrot", bg: "66.jpg",
             photos: ["gggg.png", "ggg.png", "gg.png", "g.png"],
-            items: [
-                "بطاطا", "كريم ثوم", "مايونيز", "حمص", "متبل", "محمرة بكعك", 
-                "طرطور دجاج", "كبة طرابلسية", "كبة صاجية", "بابا غنوج", 
-                "باذنجان مشوي", "ذرة بالمايونيز", "حمص بيروتي", "حمص باللحمة",
-                "يالنجي", "برك جبنة", "كبة نية"
-            ]
+            items: ["بطاطا", "كريم ثوم", "مايونيز", "حمص", "متبل", "محمرة بكعك", "طرطور دجاج", "كبة طرابلسية", "كبة صاجية", "بابا غنوج", "باذنجان مشوي", "ذرة بالمايونيز", "حمص بيروتي", "حمص باللحمة", "يالنجي", "برك جبنة", "كبة نية"]
         },
         "breakfast": {
-            name: "الفطور",
+            name: "الفطور", icon: "fa-egg", bg: "7.jpg",
             photos: ["b66.png", "b55.png", "b5.png"],
-            items: [
-                "بيض مقلي", "بيض مسلوق", "جبنة عربية", "لبنة عربية", "زيتون", 
-                "مرتديلا", "حلاوة", "مربى + زبدة", "حمص حب", "خضرة مشكلة", "بيض مع بندورة"
-            ]
+            items: ["بيض مقلي", "بيض مسلوق", "جبنة عربية", "لبنة عربية", "زيتون", "مرتديلا", "حلاوة", "مربى + زبدة", "حمص حب", "خضرة مشكلة", "بيض مع بندورة"]
         },
         "hot_drinks": {
-            name: "المشروبات الساخنة",
+            name: "المشروبات الساخنة", icon: "fa-mug-hot", bg: "hot_bg.jpg",
             photos: ["p3.png", "p2.png", "p1.png", "p.png"],
-            items: [
-                "قهوة", "شاي خمير", "شاي ظرف", "كبتشينو", "كبتشينو مع حليب", "ميلو",
-                "ميلو مع حليب", "هوت شوكليت", "هوت شوكليت مع مارشميلو", "نسكافيه بلاك",
-                "نسكافيه مع حليب", "زنجبيل", "زنجبيل مع برتقال", "زنجبيل مع ليمون",
-                "زنجبيل مع حليب", "زهورات", "كمون وليمون", "شاي اخضر", "كركديه",
-                "نعناع مغلي", "شاي مع نعناع", "شاي مع ليمون"
-            ]
+            items: ["قهوة", "شاي خمير", "شاي ظرف", "كبتشينو", "كبتشينو مع حليب", "ميلو", "ميلو مع حليب", "هوت شوكليت", "هوت شوكليت مع مارشميلو", "نسكافيه بلاك", "نسكافيه مع حليب", "زنجبيل", "زنجبيل مع برتقال", "زنجبيل مع ليمون", "زنجبيل مع حليب", "زهورات", "كمون وليمون", "شاي اخضر", "كركديه", "نعناع مغلي", "شاي مع نعناع", "شاي مع ليمون"]
         },
         "fresh_juices": {
-            name: "عصير طبيعي فريش",
+            name: "عصير طبيعي فريش", icon: "fa-glass-water", bg: "67.jpg",
             photos: ["aaa.png", "aa.png", "a.png"],
-            items: [
-                "برتقال", "منغا", "أناناس", "سموزي منغا مع أناناس", "برتقال وليمون",
-                "بولو", "فريز", "سموزي فريز وليمون", "سموزي فريز وكيوي", "كيوي",
-                "بطيخ", "جبس", "رمان", "جمايكا", "كراندين"
-            ]
+            items: ["برتقال", "منغا", "أناناس", "سموزي منغا مع أناناس", "برتقال وليمون", "بولو", "فريز", "سموزي فريز وليمون", "سموزي فريز وكيوي", "كيوي", "بطيخ", "جبس", "رمان", "جمايكا", "كراندين"]
         },
         "milkshakes_cocktails": {
-            name: "ميلك شيك وكوكتيل",
-            photos: ["sh3.png", "sh2.png", "sh1.png", "sh.png"],
-            items: [
-                "--- ميلك شيك ---",
-                "فانيل", "فريز", "شوكولا", "لوتس", "أوريو", "كرميل",
-                "--- كوكتيلات ---",
-                "حليب وموز", "حليب وموز وفريز", "حليب وموز وأفوكادو", "حليب وموز وشوكولا",
-                "فواكه", "آيس كفي", "آيس موكا", "فرابتشينو", "كوكتيل طبقات",
-                "كوكتيل تروبيكال آيلند", "سانسيت"
-            ]
+            name: "ميلك شيك وكوكتيل", icon: "fa-blender", bg: "3333.jpg",
+            photos: ["sh3.png", "sh1.png", "sh.png"],
+            items: ["--- ميلك شيك ---", "فانيل", "فريز", "شوكولا", "لوتس", "أوريو", "كرميل", "--- كوكتيلات ---", "حليب وموز", "حليب وموز وفريز", "حليب وموز وأفوكادو", "حليب وموز وشوكولا", "فواكه", "آيس كفي", "آيس موكا", "فرابتشينو", "كوكتيل طبقات", "كوكتيل تروبيكال آيلند", "سانسيت"]
         },
-        "salads_msserts": {
-            name: "السلطات ",
+        "salads": {
+            name: "السلطات", icon: "fa-leaf", bg: "7.jpg",
             photos: ["ss.png", "sss.png", "s.png"],
-            items: [
-                "--- قسم السلطات ---",
-                "فتوش", "تبولة", "شرقية", "ارمنية", "جرجير", "سيزر", "روسية", "سويسرية", "تعليلة", "شمندر", "خيار بلبن", "خضرة مشكلة", "زيتون", "فطر",
-              
-            ]
- },
-        "salads_desserts": {
-            name: "الحلويات",
+            items: ["فتوش", "تبولة", "شرقية", "ارمنية", "جرجير", "سيزر", "روسية", "سويسرية", "تعليلة", "شمندر", "خيار بلبن", "خضرة مشكلة", "زيتون", "فطر"]
+        },
+        "desserts": {
+            name: "الحلويات", icon: "fa-ice-cream", bg: "33.jpg",
             photos: ["nn.png","nnnnn.png","nnnn.png", "nnn.png", "n1.png", "n.png"],
-            items: [
-                "--- الحلويات ---",
-                "كاتو", "كوفر (وافل) فواكه", "كوفر شوكولا", "كوفر قشطة وعسل", "كريب شوكولا", "كريب فواكه", "كريب فيتوتشيني", "شوشي كريب",
-                "--- سلطة فواكه ---",
-                "سلطة فواكه", "سلطة فواكه نوتيلا", "سلطة فواكه لوتس", "بوظة مشكل", "موالح",
-                "--- قسم إمبراطور ---",
-                "إمبراطور شوكولا", "إمبراطور فواكه", "إمبراطور حليب وموز", "إمبراطور قشاطي", "إمبراطور أفوكادو", "سبشل فريز"
-            ]
+            items: ["كاتو", "كوفر فواكه", "كوفر شوكولا", "كوفر قشطة وعسل", "كريب شوكولا", "كريب فواكه", "كريب فيتوتشيني", "شوشي كريب", "--- سلطة فواكه ---", "سلطة فواكه", "سلطة فواكه نوتيلا", "سلطة فواكه لوتس", "بوظة مشكل", "موالح", "--- إمبراطور ---", "إمبراطور شوكولا", "إمبراطور فواكه", "إمبراطور حليب وموز", "إمبراطور قشاطي", "إمبراطور أفوكادو", "سبشل فريز"]
         },
         "mojito_cold": {
-            name: "موهيتو ومشروبات باردة",
+            name: "موهيتو وبارد", icon: "fa-martini-glass-citrus", bg: "444.jpg",
             photos: ["hhhh1.png", "hhh1.png", "hh1.png", "h1.png"],
-            items: [
-                "موهيتو ليمون ونعناع", "موهيتو بلو هاواي", "موهيتو بلو كساوا", "موهيتو توت",
-                "موهيتو باشن فروت", "بلو فاي", "بلولاييم", "ولكم بيري", "لايم أند بيري",
-                "سفن", "سفن مع ليمون", "سفن مع كراندين", "كولا", "كولا مع نسكافيه"
-            ]
+            items: ["موهيتو ليمون ونعناع", "موهيتو بلو هاواي", "موهيتو بلو كساوا", "موهيتو توت", "موهيتو باشن فروت", "بلو فاي", "بلولاييم", "ولكم بيري", "لايم أند بيري", "سفن", "سفن مع ليمون", "سفن مع كراندين", "كولا", "كولا مع نسكافيه"]
         },
         "hookah": {
-            name: "الأركيلة",
-            photos: ["m.png", "1.png", "m1.png"],
+            name: "الأركيلة", icon: "fa-wind", bg: "88.jpg",
+            photos: [ "1.png", "m1.png"],
             items: ["تفاحتين", "فاخر", "عنب", "لوف", "مسكة", "عنب ونعنع", "بولو", "خدمة اركيلة", "خدمة راس", "تعليلة فريش"]
         }
     };
 
-    const contactInfo = [
-        { icon: "fa-whatsapp", label: "واتساب", value: "0955820800", color: "text-green-600" },
-        { icon: "fa-facebook", label: "فيسبوك", value: "تعليلة_Taalia", color: "text-blue-800" },
-        { icon: "fa-map-marker-alt", label: "العنوان", value: "دير الزور - الرشدية - شارع النهر", color: "text-red-700" }
-    ];
-
     function nav(id) {
+        const layout = document.getElementById('main-layout');
+        if (backgrounds[id]) layout.style.backgroundImage = `url('${backgrounds[id]}')`;
+
         document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
         document.getElementById(id).classList.add('active');
-        if(id === 'categories') window.scrollTo(0,0);
     }
 
     function openCat(key) {
         const data = menuData[key];
-        document.getElementById('nav-label-active').innerText = data.name;
-        document.getElementById('cat-title-display').innerText = data.name;
+        const layout = document.getElementById('main-layout');
+        if (data.bg) layout.style.backgroundImage = `url('${data.bg}')`;
 
-        const imgSlot = document.getElementById('images-render-area');
+        document.getElementById('nav-title').innerText = data.name;
+        document.getElementById('cat-head').innerText = data.name;
+
+        const imgSlot = document.getElementById('img-area');
         imgSlot.innerHTML = '';
         data.photos.forEach(src => {
             const img = document.createElement('img');
-            img.src = src;
-            img.className = 'dish-float';
+            img.src = src; img.className = 'dish-float';
             img.onerror = () => img.style.display = 'none';
             imgSlot.appendChild(img);
         });
 
-        const listSlot = document.getElementById('items-render-area');
-        listSlot.innerHTML = '';
+        const itemSlot = document.getElementById('items-area');
+        itemSlot.innerHTML = '';
         data.items.forEach(text => {
             if(text.includes('---')) {
                 const div = document.createElement('div');
                 div.className = 'sub-divider';
                 div.innerText = text.replace(/-/g, '').trim();
-                listSlot.appendChild(div);
+                itemSlot.appendChild(div);
+            } else {
+                const span = document.createElement('span');
+                span.className = 'menu-row';
+                span.innerText = text;
+                itemSlot.appendChild(span);
+            }
+        });
+
+        nav('details');
+        document.querySelector('.text-layer').scrollTop = 0;
+    }
+
+    const catBox = document.getElementById('cats-area');
+    Object.keys(menuData).forEach(key => {
+        const d = menuData[key];
+        const btn = document.createElement('div');
+        btn.className = 'glass-panel p-6 rounded-2xl text-center cursor-pointer flex flex-col items-center gap-3';
+        btn.innerHTML = `<i class="fa-solid ${d.icon} text-amber-500 text-3xl"></i><span class="font-bold">${d.name}</span>`;
+        btn.onclick = () => openCat(key);
+        catBox.appendChild(btn);
+    });
+</script>
+</body>
+    </html>pendChild(div);
             } else {
                 const span = document.createElement('span');
                 span.className = 'menu-row';
